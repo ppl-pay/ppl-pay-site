@@ -367,8 +367,8 @@
 		<span class="close">&times;</span>
 		<div class="message">
 			<img src="https://cdn.7tv.app/emote/01F85DPWW000087K31WRSHV0E1/4x.webp" alt="Success">
-			<h2>Загрузка...</h2>			
-			<p>Это может занять нексколько минут</p>
+			<h2>Загрузка...</h2>
+			<p>Это может занять примерно 30 секунд</p>
 			<button id="contactSupportLoading">Прошло больше минуты? Обратиться в тех. поддержку</button>
 		</div>
     </div>
@@ -381,72 +381,70 @@
         <div class="message">
             <img src="https://img.icons8.com/?size=100&id=JBQOSn7KOSuD&format=png&color=000000" alt="Success">
             <p>Вы уверены, что хотите заморозить свой счет?</p>
-            <button id="freezeAccounAcceptButton">Да</button>
+            <button id="freezeAccounAcceptButton">Да. Я понимаю, что делаю</button>
         </div>
     </div>
 </div>
 
     <script>
-        const loginModal = document.getElementById('loginModal');
-        const sendMoneyModal = document.getElementById('sendMoneyModal');
-        const successModal = document.getElementById('successModal');
-        const errorModal = document.getElementById('errorModal');
-        const loadingModal = document.getElementById('loadingModal');
-		const freezeModal = document.getElementById('freezeModal');
-        const usernameElement = document.getElementById('username');
-        const balanceElement = document.getElementById('balance');
-        const loginLogoutButton = document.getElementById('login-logout');
-        const sendMoneyButton = document.getElementById('send-money');
-        const freezeAccountButton = document.getElementById('freeze-account');
-        const transactionHistoryButton = document.getElementById('transaction-history');
-        const backToMainButton = document.getElementById('backToMain');
-        const contactSupportButton = document.getElementById('contactSupport');
-        const contactSupportLoadingButton = document.getElementById('contactSupportLoading');
-		const freezeModalButton = document.getElementById('freezeAccounAcceptButton');
-		const historyBody = document.getElementById('historyBody');
-		const modalHistory = document.getElementById('transactionHistoryModal');
-		const errorReason = document.getElementById('errorReason');
-		const accountFrozenText = document.getElementById('frozen-message');
-		
-		let userCache = {};
-        let loggedInUser = null;
-		let firstStart = true;
-		let isLoggedIn = false;
-		let currentlyGettingBalance = false;
-		
-		let isAccountFrozen = false;
+    const loginModal = document.getElementById('loginModal');
+    const sendMoneyModal = document.getElementById('sendMoneyModal');
+    const successModal = document.getElementById('successModal');
+    const errorModal = document.getElementById('errorModal');
+    const loadingModal = document.getElementById('loadingModal');
+	const freezeModal = document.getElementById('freezeModal');
+    const usernameElement = document.getElementById('username');
+    const balanceElement = document.getElementById('balance');
+    const loginLogoutButton = document.getElementById('login-logout');
+    const sendMoneyButton = document.getElementById('send-money');
+    const freezeAccountButton = document.getElementById('freeze-account');
+    const transactionHistoryButton = document.getElementById('transaction-history');
+    const backToMainButton = document.getElementById('backToMain');
+    const contactSupportButton = document.getElementById('contactSupport');
+    const contactSupportLoadingButton = document.getElementById('contactSupportLoading');
+	const freezeModalButton = document.getElementById('freezeAccounAcceptButton');
+	const historyBody = document.getElementById('historyBody');
+	const modalHistory = document.getElementById('transactionHistoryModal');
+	const errorReason = document.getElementById('errorReason');
+	const accountFrozenText = document.getElementById('frozen-message');
+	
+	let userCache = {};
+    let loggedInUser = null;
+	let firstStart = true;
+	let isLoggedIn = false;
+	let currentlyGettingBalance = false;
+	
+	let isAccountFrozen = false;
 
         // Функция для создания снежинок
-		function createSnowflake() {
-			if (isAccountFrozen)
-			{
-				accountFrozenText.style.display = 'block';
-				sendMoneyButton.style.display = 'none';
-				freezeAccountButton.style.display = 'none';
-				const snowflake = document.createElement('div');
-				snowflake.className = 'snowflake';
-				snowflake.innerHTML = '❄'; // Символ снежинки
-				snowflake.style.left = Math.random() * 100 + 'vw'; // Позиция по горизонтали
-				const animationDuration = (Math.random() * 3 + 2);
-				snowflake.style.animationDuration = animationDuration + 's'; // Длительность падения
-				snowflake.style.fontSize = (Math.random() * 1 + 0.5) + 'em'; // Размер снежинки
-				document.body.appendChild(snowflake);
+	function createSnowflake() {
+		if (isAccountFrozen)
+		{
+			accountFrozenText.style.display = 'block';
+			sendMoneyButton.style.display = 'none';
+			freezeAccountButton.style.display = 'none';
+			const snowflake = document.createElement('div');
+			snowflake.className = 'snowflake';
+			snowflake.innerHTML = '❄';
+			snowflake.style.left = Math.random() * 100 + 'vw';
+			const animationDuration = (Math.random() * 3 + 2);
+			snowflake.style.animationDuration = animationDuration + 's';
+			snowflake.style.fontSize = (Math.random() * 2 + 1) + 'em';
+			document.body.appendChild(snowflake);
 
-				// Удаление снежинки после завершения анимации
-				setTimeout(() => {
-					snowflake.remove();
-				}, animationDuration * 1000); // Убедитесь, что время соответствует длительности анимации
-			}
-			else
-			{
-				accountFrozenText.style.display = 'none';
-				sendMoneyButton.style.display = 'block';
-				freezeAccountButton.style.display = 'block';
-			}
+			setTimeout(() => {
+				snowflake.remove();
+			}, animationDuration * 1000);
 		}
+		else
+		{
+			accountFrozenText.style.display = 'none';
+			sendMoneyButton.style.display = 'block';
+			freezeAccountButton.style.display = 'block';
+		}
+	}
 
-		// Создание снежинок с интервалом в 50 мс
-		setInterval(createSnowflake, 100);
+		setInterval(createSnowflake, 500);
 		
 		document.addEventListener('DOMContentLoaded', async function() {
 			const savedUsername = localStorage.getItem('username');
