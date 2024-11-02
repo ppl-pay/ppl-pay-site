@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PPL-PAY | pepeland банк</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap">
-    <link rel="icon" type="image/svg" href="/pepeland.svg">
-        <style>
+    <link rel="icon" type="image/png" href="/logo.png">
+    <style>
         ::-webkit-scrollbar {
             width: 18px;
             height: 18px;
@@ -127,7 +127,7 @@
             border: none;
             border-radius: 15px;
             background-color: #24282b;
-            color: white;
+            color: rgba(255,255,255,0.75);
             cursor: pointer;
             transition: background-color 0.3s;
         }
@@ -146,8 +146,11 @@
             background-color: #24282b;
             bottom: 0;
             box-sizing: border-box;
+			color: rgba(255,255,255,0.5);
+			text-align: right;
+			font-size: 12px;
         }
-        .footer .support {
+        .footer button {
             padding: 10px 20px;
             border: none;
             border-radius: 15px;
@@ -155,8 +158,9 @@
             color: black;
             cursor: pointer;
             transition: background-color 0.3s;
+			margin-right: 8px;
         }
-        .footer .support:hover {
+        .footer button:hover {
             background-color: #31363b;
             color: white;
         }
@@ -179,7 +183,7 @@
 			padding: 20px;
 			border-radius: 15px;
 			width: 80%;
-			max-width: 700px;
+			max-width: 550px;
 			box-sizing: border-box;
 		}
 	    .modal-content .close {
@@ -267,17 +271,18 @@
             color: black;
         }
 		.coordinates {
-			margin-top: 15px;
+			margin-bottom: 15px;
 			padding: 15px 25px;
             display: flex;
 			flex-direction: column;
             align-items: center;
             margin-bottom: 20px;
 			border-radius: 15px;
-            background-color: #24282b;
+            background-color: #31363b;
 		}
 		.coordinates img {
 			height: 40px;
+			width: 40px;
 		}
 		.coordinates .idk {
 			display: flex;
@@ -304,7 +309,7 @@
 <body>
     <div class="header">
         <div class="logo">
-            <img src="https://pepeland.net/_next/static/media/pepeland.fd4f34dc.svg" alt="PPL PAY">
+            <img src="logo.png" alt="PPL PAY">
             <span>PPL PAY</span>
         </div>
         <div class="user-info">
@@ -314,20 +319,11 @@
     </div>
     <div class="content">
 		<div class="dont-logged-in-content" id="dont-logged-in-content">
-            <img src="https://pepeland.net/_next/static/media/pepeland.fd4f34dc.svg" alt="PPL PAY">
+            <img src="logo.png" alt="PPL PAY">
 			<h2>PPL PAY</h2>
 			<p>PPL PAY - это банк для получения кредитов,<br>безналичной оплаты и безопасного хранения<br>алмазов на Minecraft сервере pepeland!<br></p>
-			<p>Координты отделений банков:</p>
-			<div class="coordinates">
-				<h4>Центральный банк</h4>
-				<div class="idk">
-					<img src="https://img.icons8.com/?size=100&id=OBmVbH2qOGwK&format=png&color=000000" alt="Coordinates">
-					<p>МП1</p>
-					<p>Пока-что неизвестно</p>
-				</div>
-			</div>
         </div>
-		<div id="logged-in-content">
+		<div class="content" id="logged-in-content">
 			<div class="balance">
 				<p class="text">Ваш баланс:</p>
 				<div class="balance-num">
@@ -336,27 +332,21 @@
 				</div>
 			</div>
 			<div class="frozen-message" id="frozen-message" style="display: none;">
-				Аккаунт заморожен. Разблокировать его можно в отделении банка.<br></br>
+				<br></br>Аккаунт заморожен. Разблокировать его можно в отделении банка.
 			</div>
 			<div class="buttons">
 				<button id="send-money">Отправить деньги</button>
 				<button id="freeze-account" class="frozen">Заморозить аккаунт</button>
 				<button id="transaction-history">История операций</button>
 			</div>
-			<p>Координты отделений банков:</p>
-			<div class="coordinates">
-				<h4>Центральный банк</h4>
-				<div class="idk">
-					<img src="https://img.icons8.com/?size=100&id=OBmVbH2qOGwK&format=png&color=000000" alt="Coordinates">
-					<p>МП1</p>
-					<p>Пока-что неизвестно</p>
-				</div>
-			</div>
 		</div>
     </div>
     <div class="footer">
-        <button class="support" id="contactSupport">Тех. поддержка</button>
-        <span>Copyright (C) 2024 ItzKITb</span>
+		<div>
+			<button class="button" id="contactSupport">Тех. поддержка</button>
+			<button class="button" id="branchesButton">Отделения банка</button>
+		</div>
+        <span>Copyright (C) 2024 ItzKITb | Images by icons8.com<br>Не является оффициальной услугой сети серверов PepeLand</span>
     </div>
 
 	<!-- Modal for transaction history -->
@@ -482,6 +472,25 @@
     </div>
 </div>
 
+<!-- Modal for bank branches -->
+<div id="branchesModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <div class="message">
+            <img src="https://img.icons8.com/?size=100&id=PeY8zoi2u8PN&format=png&color=000000" alt="Success">
+            <h2>Отделения банка</h2>
+        </div>
+		<div class="coordinates">
+			<h4>Центральный банк</h4>
+			<div class="idk">
+				<img src="https://img.icons8.com/?size=100&id=OBmVbH2qOGwK&format=png&color=000000" alt="Coordinates">
+				<p>МП1</p>
+				<p>Пока-что неизвестно</p>
+			</div>
+		</div>
+    </div>
+</div>
+
     <script>
         const loginModal = document.getElementById('loginModal');
         const sendMoneyModal = document.getElementById('sendMoneyModal');
@@ -505,6 +514,8 @@
 		const accountFrozenText = document.getElementById('frozen-message');
 		const menuContent = document.getElementById('dont-logged-in-content');
 		const bankContent = document.getElementById('logged-in-content');
+		const branchesModal = document.getElementById('branchesModal');
+		const branchesButton = document.getElementById('branchesButton');
 		
 		let userCache = {};
         let loggedInUser = null;
@@ -549,14 +560,14 @@
 		setInterval(function() {
 			if (isLoggedIn)
 			{
-				usernameElement.style.display = 'block';
+				usernameElement.style.display = null;
 				menuContent.style.display = 'none';
-				bankContent.style.display = 'block';
+				bankContent.style.display = null;
 			}
 			else
 			{
 				usernameElement.style.display = 'none';
-				menuContent.style.display = 'block';
+				menuContent.style.display = null;
 				bankContent.style.display = 'none';
 			}
 		}, 1);
@@ -789,7 +800,11 @@
                 openModal(loginModal);
             }
         });
-
+		
+		branchesButton.addEventListener('click', function() {
+            openModal(branchesModal);
+        });
+		
         sendMoneyButton.addEventListener('click', function() {
             openModal(sendMoneyModal);
         });
